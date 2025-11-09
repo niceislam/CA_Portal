@@ -1,10 +1,13 @@
+import 'package:ca_portal_2/view/screen/home/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomAppbar extends StatelessWidget {
   const CustomAppbar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    HomeController controller = Get.put(HomeController());
     return AppBar(
       forceMaterialTransparency: true,
       backgroundColor: Color(0xffF0F6FC),
@@ -42,7 +45,7 @@ class CustomAppbar extends StatelessWidget {
       centerTitle: true,
       actions: [
         InkWell(
-          onTap: (){},
+          onTap: () {},
           child: Image.asset(
             fit: BoxFit.fill,
             height: 22,
@@ -51,7 +54,12 @@ class CustomAppbar extends StatelessWidget {
           ),
         ),
         SizedBox(width: 15),
-        IconButton(onPressed: () {}, icon: Icon(Icons.logout, size: 28)),
+        IconButton(
+          onPressed: () {
+            controller.jsonToModel();
+          },
+          icon: Icon(Icons.logout, size: 28),
+        ),
         SizedBox(width: 10),
       ],
     );

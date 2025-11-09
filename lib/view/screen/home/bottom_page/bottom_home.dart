@@ -1,10 +1,21 @@
+import 'dart:developer';
+
+import 'package:ca_portal_2/database/all_student.dart';
+import 'package:ca_portal_2/model/student_info/model.dart';
+import 'package:ca_portal_2/view/screen/home/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+import 'package:get/get.dart';
+import '../widget/performance_card.dart';
+import '../widget/progress_center.dart';
+import '../widget/show_infoCard.dart';
 
 class BottomHome extends StatelessWidget {
   const BottomHome({super.key});
 
   @override
   Widget build(BuildContext context) {
+    HomeController controller = Get.put(HomeController());
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,14 +33,17 @@ class BottomHome extends StatelessWidget {
             color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-              child: Column(
-                children: [
-                  _buildRow(title: 'Student Name', ans: "Nice islam"),
-                  _buildRow(title: 'Student ID', ans: "01859009285"),
-                  _buildRow(title: 'Course', ans: "Flutter App Development"),
-                  _buildRow(title: 'Batch', ans: "4"),
-                ],
-              ),
+              child: Obx(() {
+                StudentInfoModel item = controller.ModelData[0];
+                return Column(
+                  children: [
+                    _buildRow(title: 'Student Name', ans: "${item.name}"),
+                    _buildRow(title: 'Student ID', ans: "${item.id}"),
+                    _buildRow(title: 'Course', ans: "Flutter App Development"),
+                    _buildRow(title: 'Batch', ans: "4"),
+                  ],
+                );
+              }),
             ),
           ),
           SizedBox(height: 20),
@@ -43,35 +57,83 @@ class BottomHome extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 8,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            spacing: 2,
             children: [
-              Card(
-                color: Colors.white,
-                child: SizedBox(
-                  height: 200,
-                  width: MediaQuery.sizeOf(context).width / 2.11,
+              SizedBox(
+                height: 198,
+                width: MediaQuery.sizeOf(context).width / 2.0125,
+                child: Card(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10, left: 5, right: 10),
+                    child: Column(
+                      children: [
+                        Obx(() {
+                          StudentInfoModel item = controller.ModelData[0];
+                          return CircularPercentIndicator(
+                            center: Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: CenterWidgetProgress(
+                                fixedPercent: 270,
+                                percent:
+                                    item.assignmentmarks! +
+                                    item.attendancemark!,
+                                marksPercent:
+                                    "${((item.assignmentmarks! + item.attendancemark!) / 270) * 100}",
+                              ),
+                            ),
+                            animationDuration: 1500,
+                            animateToInitialPercent: true,
+                            progressBorderColor: Colors.black,
+                            circularStrokeCap: CircularStrokeCap.round,
+                            radius: 75,
+                            lineWidth: 10,
+                            linearGradient: LinearGradient(
+                              colors: [Colors.blue, Colors.pink, Colors.amber],
+                            ),
+                            percent:
+                                double.parse(
+                                  "${item.attendancemark! + item.assignmentmarks!}",
+                                ) /
+                                270,
+                            animation: true,
+                            arcBackgroundColor: Colors.blue.shade100,
+
+                            arcType: ArcType.FULL,
+                          );
+                        }),
+                        Text(
+                          "15 th of 19 students",
+                          style: TextStyle(
+                            color: Colors.blueAccent,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-              Column(
-                spacing: 10,
-                children: [
-                  Card(
-                    color: Colors.white,
-                    child: SizedBox(
-                      height: 90,
-                      width: MediaQuery.sizeOf(context).width - 230,
+              Obx(() {
+                StudentInfoModel item = controller.ModelData[0];
+                return Column(
+                  spacing: 10,
+                  children: [
+                    PerformanceCard(
+                      title: "ATTENDANCE",
+                      fixedvalue: 6,
+                      recentvalue: item.attendance!,
                     ),
-                  ),
-                  Card(
-                    color: Colors.white,
-                    child: SizedBox(
-                      height: 90,
-                      width: MediaQuery.sizeOf(context).width - 230,
+                    PerformanceCard(
+                      title: "ASSIGNMENT",
+                      fixedvalue: 4,
+                      recentvalue: item.assignment!,
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                );
+              }),
             ],
           ),
           SizedBox(height: 20),
@@ -84,97 +146,23 @@ class BottomHome extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10),
-          ListView.builder(
-            itemCount: 10,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => Container(
-              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-              height: 170,
-              width: MediaQuery.sizeOf(context).width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Color(0xffB6E0C9),
-                border: BoxBorder.all(color: Colors.blue, width: 1),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          spacing: 10,
-                          children: [
-                            Icon(Icons.person, color: Colors.blue, size: 35),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Nice islam",
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "ID: ",
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    Text(
-                                      "01859009285",
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Image.asset(
-                              fit: BoxFit.fill,
-                              height: 40,
-                              width: 40,
-                              "assets/image/Trofeee.png",
-                            ),
-                            SizedBox(width: 5),
-                            Container(
-                              height: 28,
-                              width: 22,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Colors.blueAccent.withAlpha(80),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "1",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+          Obx(
+            () => ListView.builder(
+              itemCount: controller.ModelData.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                StudentInfoModel item = controller.ModelData[index];
+                return ShowInfoCard(
+                  attenrecentvalue1: item.attendance,
+                  attenrecentvalue2: item.attendancemark,
+                  assirecentvalue1: item.assignment,
+                  assirecentvalue2: item.assignmentmarks,
+                  name: item.name,
+                  id: item.id,
+                  serial: index + 1,
+                );
+              },
             ),
           ),
         ],
@@ -190,7 +178,7 @@ class BottomHome extends StatelessWidget {
           "${title ?? ""}",
           style: TextStyle(
             color: Colors.black,
-            fontSize: 17,
+            fontSize: 16,
             fontWeight: FontWeight.w500,
           ),
         ),
