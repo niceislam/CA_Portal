@@ -19,6 +19,7 @@ dependencies:
   permission_handler: ^12.0.1
   fluttertoast: ^9.0.0
   get: ^4.7.2
+  bottom_bar: ^2.0.5
 
 dev_dependencies:
   flutter_test:
@@ -32,8 +33,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/image/
+    - assets/image/ca.png
+    - assets/image/Trofeee.png
   fonts:
     - family: myfont
       fonts:
         - asset: assets/fonts/playfairfont.ttf
-

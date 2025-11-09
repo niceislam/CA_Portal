@@ -12,17 +12,27 @@ class LoginController extends GetxController {
   TextEditingController loginPasscontroller = TextEditingController();
   RxBool isLoadin = false.obs;
   RxBool visibility = true.obs;
-  List database = [];
   RxInt loop = 0.obs;
 
   oneye() {
     visibility.value = !visibility.value;
   }
 
-  loginTap() async {
-    for (var i in LoginDatabase().Data) {
-      database.add(i);
+  compareFun() {
+    int index = LoginDatabase().Data.length - 1;
+    for (var a = 0; a <= index; a++) {
+      if (loginIdcontroller.text == LoginDatabase().Data[a]["id"] &&
+          loginPasscontroller.text == LoginDatabase().Data[a]["password"]) {
+        return true;
+      }
+      isLoadin.value = false;
     }
+  }
+
+  loginTap() async {
+    isLoadin.value = true;
+    await Future.delayed(Duration(seconds: 2));
+    log("========${compareFun()}");
     if (loginIdcontroller.text.isEmpty || loginPasscontroller.text.isEmpty) {
       Get.snackbar(
         "Massage",
@@ -31,8 +41,7 @@ class LoginController extends GetxController {
         margin: EdgeInsets.symmetric(horizontal: 30),
         backgroundColor: Colors.red.shade200,
       );
-    } else if (loginIdcontroller.text == database[0]['id'] &&
-        loginPasscontroller.text == database[0]['password']) {
+    } else if (compareFun()) {
       Get.offAll(() => HomeScreen());
       Get.snackbar(
         "Massage",
@@ -41,7 +50,7 @@ class LoginController extends GetxController {
         icon: Icon(Icons.sms_outlined),
         margin: EdgeInsets.symmetric(horizontal: 30),
       );
-    } else {
+    } else if (compareFun() == null) {
       Get.snackbar(
         "Massage",
         "Login failed",

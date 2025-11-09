@@ -41,9 +41,14 @@ class CustomAppbar extends StatelessWidget {
       ),
       centerTitle: true,
       actions: [
-        Badge.count(
-          count: 3,
-          child: Icon(Icons.notifications_outlined, size: 28),
+        InkWell(
+          onTap: (){},
+          child: Image.asset(
+            fit: BoxFit.fill,
+            height: 22,
+            width: 22,
+            "assets/image/notification.png",
+          ),
         ),
         SizedBox(width: 15),
         IconButton(onPressed: () {}, icon: Icon(Icons.logout, size: 28)),
