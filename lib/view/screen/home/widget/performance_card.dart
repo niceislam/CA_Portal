@@ -18,7 +18,7 @@ class PerformanceCard extends StatelessWidget {
       color: Colors.white,
       child: SizedBox(
         height: 80,
-        width: MediaQuery.sizeOf(context).width - 225,
+        width: MediaQuery.sizeOf(context).width / 2.29,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           child: Column(

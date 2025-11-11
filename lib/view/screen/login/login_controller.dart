@@ -1,24 +1,30 @@
 import 'dart:developer';
 
 import 'package:ca_portal_2/database/all_student.dart';
-import 'package:ca_portal_2/model/student_info/model.dart';
-import 'package:ca_portal_2/view/screen/login/login_database.dart';
+import 'package:ca_portal_2/local_storage/secure_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import '../home/home_screen.dart';
 
 class LoginController extends GetxController {
+  Rx<dynamic> rememberData = "".obs;
   TextEditingController loginIdcontroller = TextEditingController();
   TextEditingController loginPasscontroller = TextEditingController();
   RxBool isLoadin = false.obs;
   RxBool visibility = true.obs;
+  RxBool remember = false.obs;
   RxInt loop = 0.obs;
   RxList ModelData = [].obs;
 
   oneye() {
     visibility.value = !visibility.value;
+  }
+
+  rememberMe({required bool value}) {
+    remember.value = value;
   }
 
   loginTap() async {
@@ -35,13 +41,15 @@ class LoginController extends GetxController {
     } else if (loginIdcontroller.text == StudentDetails().Info[0]['id'] &&
         loginPasscontroller.text == StudentDetails().Info[0]['password']) {
       Get.offAll(() => HomeScreen());
-      Get.snackbar(
-        "Massage",
-        "Login success",
-        icon: Icon(Icons.sms_outlined),
-        backgroundColor: Colors.white,
-        margin: EdgeInsets.symmetric(horizontal: 30),
-      );
+      await EasyLoading.showSuccess("Login Success");
+      isLoadin.value = false;
+      await LocalStorage().writeData(key: "login", value: "yes");
+      if (remember == true) {
+        await LocalStorage().writeData(
+          key: "remember",
+          value: "${loginIdcontroller.text}",
+        );
+      }
     } else {
       Get.snackbar(
         "Massage",
@@ -52,5 +60,18 @@ class LoginController extends GetxController {
       );
     }
     isLoadin.value = false;
+  }
+
+  remeberToTextfield() async {
+    var data = await LocalStorage().readData(key: "remember");
+    if (data != null) {
+      rememberData.value = data;
+    }
+  }
+
+  @override
+  void onInit() {
+    remeberToTextfield();
+    super.onInit();
   }
 }

@@ -6,9 +6,9 @@ import 'package:ca_portal_2/view/screen/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:get/get.dart';
-import '../widget/performance_card.dart';
-import '../widget/progress_center.dart';
-import '../widget/show_infoCard.dart';
+import '../../widget/performance_card.dart';
+import '../../widget/progress_center.dart';
+import '../../widget/show_infoCard.dart';
 
 class BottomHome extends StatelessWidget {
   const BottomHome({super.key});

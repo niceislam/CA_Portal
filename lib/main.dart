@@ -1,5 +1,5 @@
-import 'package:ca_portal_2/view/screen/home/home_screen.dart';
-import 'package:ca_portal_2/view/screen/login/login_screen.dart';
+import 'package:ca_portal_2/view/screen/home/bottom_page/bottom_task/task_inScreen.dart';
+import 'package:ca_portal_2/view/screen/splash_screen/splash_sreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       builder: EasyLoading.init(),
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: SplashSreen(),
     );
   }
 }

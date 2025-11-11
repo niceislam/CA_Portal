@@ -1,8 +1,10 @@
 import 'package:ca_portal_2/view/screen/login/login_controller.dart';
-import 'package:ca_portal_2/view/screen/login/widget/widget.dart';
+import 'package:ca_portal_2/widget/TextField.dart';
+import 'package:ca_portal_2/view/screen/register/register_screen.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -97,10 +99,18 @@ class LoginScreen extends StatelessWidget {
                             style: TextStyle(color: Colors.white, fontSize: 17),
                           ),
                           SizedBox(height: 35),
-                          CustomTextfield(
-                            sufIcon: Icon(Icons.person_outline),
-                            hinttext: "ID",
-                            controller: controller.loginIdcontroller,
+                          Obx(
+                            () => CustomTextfield(
+                              keyboardType: TextInputType.number,
+                              inputFormater:
+                                  FilteringTextInputFormatter.digitsOnly,
+                              sufIcon: Icon(Icons.person_outline),
+                              hinttext: "ID",
+                              controller: controller.loginIdcontroller =
+                                  TextEditingController(
+                                    text: "${controller.rememberData}",
+                                  ),
+                            ),
                           ),
                           SizedBox(height: 12),
                           Obx(
@@ -114,7 +124,31 @@ class LoginScreen extends StatelessWidget {
                               controller: controller.loginPasscontroller,
                             ),
                           ),
-                          SizedBox(height: 15),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Obx(
+                                () => Checkbox(
+                                  activeColor: Colors.white,
+                                  checkColor: Colors.black,
+                                  side: BorderSide(color: Colors.white),
+                                  value: controller.remember.value,
+                                  onChanged: (value) {
+                                    controller.rememberMe(value: value!);
+                                  },
+                                ),
+                              ),
+                              Text(
+                                "Remember me",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+
                           InkWell(
                             onTap: controller.loginTap,
                             child: Container(
@@ -145,7 +179,9 @@ class LoginScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 20),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.offAll(() => RegisterScreen());
+                            },
                             child: Text(
                               "Create an account",
                               style: TextStyle(

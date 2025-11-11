@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class CustomTextfield extends StatelessWidget {
@@ -10,6 +11,8 @@ class CustomTextfield extends StatelessWidget {
     this.sufIcon,
     this.obsecureText,
     this.eyetap,
+    this.keyboardType,
+    this.inputFormater,
   });
 
   final String? hinttext;
@@ -18,10 +21,14 @@ class CustomTextfield extends StatelessWidget {
   final Icon? sufIcon;
   final bool? obsecureText;
   final VoidCallback? eyetap;
+  final TextInputType? keyboardType;
+  final TextInputFormatter? inputFormater;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: keyboardType,
+      inputFormatters: [if (inputFormater != null) inputFormater!],
       obscureText: obsecureText ?? false,
       controller: controller,
       style: TextStyle(
@@ -38,7 +45,7 @@ class CustomTextfield extends StatelessWidget {
         ),
         errorStyle: TextStyle(color: Colors.white),
         hintText: hinttext,
-        hintStyle: TextStyle(color: Colors.grey),
+        hintStyle: TextStyle(color: Colors.grey, fontSize: 17),
         filled: true,
         fillColor: Colors.white,
         contentPadding: EdgeInsets.symmetric(horizontal: 10),

@@ -1,9 +1,11 @@
 import 'package:ca_portal_2/view/screen/home/home_controller.dart';
 import 'package:flutter/material.dart';
+
+import '../../widget/logout_widget.dart';
 import 'package:get/get.dart';
 
-class CustomAppbar extends StatelessWidget {
-  const CustomAppbar({super.key});
+class HomepageAppbar extends StatelessWidget {
+  const HomepageAppbar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,24 @@ class CustomAppbar extends StatelessWidget {
         SizedBox(width: 15),
         IconButton(
           onPressed: () {
-            controller.jsonToModel();
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) => AlertDialog(
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                content: SingleChildScrollView(
+                  child: CustomLogout(
+                    asetImage: "assets/image/logout.png",
+                    title: "Are you sure to logout ?",
+                    logoutOntap: controller.logut,
+                    cancelOntap: () {
+                      Get.back();
+                    },
+                  ),
+                ),
+              ),
+            );
           },
           icon: Icon(Icons.logout, size: 28),
         ),
