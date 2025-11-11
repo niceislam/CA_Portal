@@ -1,4 +1,5 @@
 import 'package:ca_portal_2/view/screen/home/home_controller.dart';
+import 'package:ca_portal_2/view/screen/notification/notification_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../widget/logout_widget.dart';
@@ -47,7 +48,9 @@ class HomepageAppbar extends StatelessWidget {
       centerTitle: true,
       actions: [
         InkWell(
-          onTap: () {},
+          onTap: () {
+            Get.to(() => NotificationPage());
+          },
           child: Image.asset(
             fit: BoxFit.fill,
             height: 22,

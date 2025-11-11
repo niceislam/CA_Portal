@@ -36,78 +36,77 @@ class TaskInscreen extends StatelessWidget {
           style: TextStyle(color: Colors.white, fontSize: 23),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              width: MediaQuery.sizeOf(context).width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
-                ),
-                color: Colors.blue.shade50,
+      body: Column(
+        children: [
+          Container(
+            width: MediaQuery.sizeOf(context).width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${title ?? ""}",
-                      maxLines: 1,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 23,
-                        fontWeight: FontWeight.bold,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+              color: Colors.blue.shade50,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "${title ?? ""}",
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 23,
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    Text(
-                      "${body ?? ""}",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  ),
+                  Text(
+                    "${body ?? ""}",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
                     ),
-                    SizedBox(height: 5),
-                    Text(
-                      "📆 ${startDate ?? ""} - ${endDate ?? ""}",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    "📆 ${startDate ?? ""} - ${endDate ?? ""}",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
                     ),
-                    Text(
-                      "💯 Marks: ${totalMarks ?? ""}",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  ),
+                  Text(
+                    "💯 Marks: ${totalMarks ?? ""}",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 20),
-            Center(
-              child: Text(
-                "TASKS MARKS",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+          ),
+          SizedBox(height: 20),
+          Center(
+            child: Text(
+              "TASKS MARKS",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
-            Padding(
+          ),
+          SizedBox(height: 10),
+          Expanded(
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: list?.length,
                 itemBuilder: (context, index) {
@@ -121,8 +120,8 @@ class TaskInscreen extends StatelessWidget {
                 },
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

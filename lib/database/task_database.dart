@@ -19,6 +19,12 @@ class TaskDatabase {
         {"name": "Nazifa Nishat", "id": "01892587412", "marks": 71},
         {"name": "Dolon Chapa", "id": "0179325895", "marks": 32},
         {"name": "Fazle Rabbi", "id": "01892587412", "marks": 18},
+        {"name": "Nice islam", "id": "01859009285", "marks": 75},
+        {"name": "Md. Reja islam", "id": "0178596525", "marks": 40},
+        {"name": "Mamun islam Mim", "id": "01589259364", "marks": 69},
+        {"name": "Nazifa Nishat", "id": "01892587412", "marks": 71},
+        {"name": "Dolon Chapa", "id": "0179325895", "marks": 32},
+        {"name": "Fazle Rabbi", "id": "01892587412", "marks": 18},
       ],
     },
     {
