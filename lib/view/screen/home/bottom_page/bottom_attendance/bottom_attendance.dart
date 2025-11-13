@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class BottomAttendance extends StatelessWidget {
   const BottomAttendance({super.key});
@@ -6,9 +7,19 @@ class BottomAttendance extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Center(child: Text("Attendance", style: TextStyle(fontSize: 25))),
+        Card(
+          color: Colors.white,
+          child: SizedBox(
+            width: MediaQuery.sizeOf(context).width,
+            child: TableCalendar(
+
+              focusedDay: DateTime.now(),
+              firstDay: DateTime.now(),
+              lastDay: DateTime.now(),
+            ),
+          ),
+        ),
       ],
     );
   }

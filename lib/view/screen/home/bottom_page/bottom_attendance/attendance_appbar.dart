@@ -5,6 +5,13 @@ class AttendanceAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(centerTitle: true, title: Text("attendance"));
+    return AppBar(
+      backgroundColor: Colors.blue,
+      centerTitle: true,
+      title: Text(
+        "Attendance Report",
+        style: TextStyle(color: Colors.white, fontSize: 25),
+      ),
+    );
   }
 }
